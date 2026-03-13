@@ -25,7 +25,36 @@
 
             // 3 -  Paneme mängu loopi oma objektidega nüüd uuesti kokku - toimub refaktoreerimine monoliitprogrammilt, objektorienteeritud struktuurile
 
+            Random rng = new Random();
+            Player player = new Player(3, 100, new Player.Point2D(0, 0), new List<string>(), 0);
+            string playAgain = "yes";
+
+            do 
+            {
+                Console.Clear();
+                EventSystem.NextEncounter(player, rng);
+            }
+            while (player.Lives > 0 || playAgain == "yes" );
+            //do //tsükkel
+            //{
+            //    do
+            //    {
             
+            //        Console.WriteLine("\nVajuta ükskõik mis klahvi et jätkata");
+            //        Console.ReadLine();
+            //    } while (elud > 0);
+
+            //    if (elud <= 0)
+            //    {
+            //        Console.WriteLine("--== Kas soovid uuesti mängida, sul on elusi 0 ==--"); //kas kasutaja soovib uuesti mängida
+            //        mängijaMängib = Console.ReadLine(); //saa vastus
+            //        if (mängijaMängib == "jah")
+            //        {
+            //            elud = 3;
+            //        }
+            //    }
+
+            //} while (mängijaMängib == "jah"); //tsükkel teeb järgmise ringi kui kasutaja vastab jah, kõige muu puhul katkeb
         }
     }
 }
