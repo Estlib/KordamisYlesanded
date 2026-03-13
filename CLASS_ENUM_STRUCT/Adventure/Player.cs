@@ -17,6 +17,11 @@ namespace Adventure
             }
             public int X { get; set; } = 0;
             public int Y { get; set; } = 0;
+
+            public override string ToString()
+            {
+                return X+","+Y;
+            }
         }
         public Player(int lives, int health, Point2D location, List<string> backpack, int money)
         {
@@ -31,5 +36,14 @@ namespace Adventure
         public Point2D Location { get; set; }
         public List<string> Backpack { get; set; } = new List<string>();
         public int Money { get; set; } = 0;
+
+        public void DisplayStats()
+        {
+            Console.WriteLine($"Vapper rüütel, sul on hetkel alles {Lives} elu, ja tervis on {Health}.");
+            Console.WriteLine($"Oled siin: {Location.ToString()} ja raha on sul {Money}");
+            Console.WriteLine($"Seljakotis on: {string.Join(", ",Backpack)}");
+        }
+
+        /* meetod checkhealth*/
     }
 }

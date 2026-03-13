@@ -27,12 +27,28 @@
 
             Random rng = new Random();
             Player player = new Player(3, 100, new Player.Point2D(0, 0), new List<string>(), 0);
-            string playAgain = "yes";
+            string playAgain = "jah";
 
             do 
             {
                 Console.Clear();
+                Console.WriteLine("STATISTIKA ======================================");
+                player.DisplayStats();
+                Console.WriteLine("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
                 EventSystem.NextEncounter(player, rng);
+                Console.WriteLine("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
+                Console.WriteLine("\nVajuta ükskõik mis klahvi et jätkata");
+                Console.ReadLine();
+                Console.Clear();
+                if (player.Lives <= 0)
+                {
+                    Console.WriteLine("--== Kas soovid uuesti mängida, sul on elusi 0, said surma ==--"); //kas kasutaja soovib uuesti mängida
+                    playAgain = Console.ReadLine(); //saa vastus
+                    if (playAgain == "jah") 
+                    { 
+                        player.Lives = 3;
+                    }
+                }
             }
             while (player.Lives > 0 || playAgain == "yes" );
             //do //tsükkel
