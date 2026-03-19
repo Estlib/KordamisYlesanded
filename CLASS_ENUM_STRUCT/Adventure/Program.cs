@@ -30,7 +30,7 @@ namespace Adventure
             Random rng = new Random();
             string playAgain = "jah";
             World map = new World("helloworld",new Point2D(3,9), new Point2D(6,8));
-            Player player = new Player(3, 100, new Point2D(map.StartingPoint.X, map.StartingPoint.Y), new List<string>(), 0);
+            Player player = new Player(3, 100, map.StartingPoint, new List<string>(), 0);
 
             do 
             {
@@ -39,6 +39,11 @@ namespace Adventure
                 player.DisplayStats();
                 Console.WriteLine("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
 
+                bool didPlayerwin = EventSystem.CheckWin(player.Location, map.Goal);
+                if (didPlayerwin)
+                {
+                    break;
+                }
                 EventSystem.NextEncounter(player, map);
                 EventSystem.NextLocation(player, map);
 
@@ -60,6 +65,7 @@ namespace Adventure
                 }
             }
             while (player.Lives > 0 || playAgain == "yes" );
+            Console.WriteLine("Võiotsid");
             //do //tsükkel
             //{
             //    do

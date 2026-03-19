@@ -315,6 +315,18 @@ namespace Adventure
 
 
         }
+
+        internal static bool CheckWin(Point2D location, Point2D goal)
+        {
+            if (location.ToString() == goal.ToString())
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
 
