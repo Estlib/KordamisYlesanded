@@ -3,12 +3,41 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Adventure.Player;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Adventure
 {
     public class EventSystem
     {
+        public static void NextEncounter(Player player, World map)
+        {
+            Point2D playerlocation = player.Location;
+            int result = map.Map[playerlocation.X,playerlocation.Y];
+            switch (result)
+            {
+                case 1:
+                    Event1_Kratt(player);
+                    break;
+                case 2:
+                    Event2_Witch(player);
+                    break;
+                case 3:
+                    Event3_Mushroom(player);
+                    break;
+                case 4:
+                    Event4_Knife(player);
+                    break;
+                case 5:
+                    Event5_Hill(player);
+                    break;
+                case 6:
+                    Event6_Shop(player);
+                    break;
+                default:
+                    break;
+            }
+        }
         public static void NextEncounter(Player player, Random rng)
         {
             int nextEncounterInt = rng.Next(1, 7);
@@ -213,6 +242,78 @@ namespace Adventure
                     player.Backpack.Remove("nuga");
                 }
             }
+        }
+
+        internal static void NextLocation(Player player, World map)
+        {
+            int mapXmax = map.Map.GetLength(0)-1;
+            int mapYmax = map.Map.GetLength(1)-1;
+            Console.WriteLine("Kuhu sa edasi minna tahad? vali suund (kirjuta täht):");
+            Console.WriteLine("  N  ");
+            Console.WriteLine("W + E");
+            Console.WriteLine("  S  ");
+            string response = Console.ReadLine();
+            switch (response)
+            {
+                case "N":
+                    int nextLocationN = CheckCandidate(mapYmax, player.Location.Y - 1, true);
+                    player.Location = new Point2D(player.Location.X, nextLocationN);
+                    break;
+                case "S":
+                    int nextLocationS = CheckCandidate(mapYmax, player.Location.Y + 1);
+                    player.Location = new Point2D(player.Location.X, nextLocationS);
+                    break;
+                case "W":
+                    int nextLocationW = CheckCandidate(mapXmax, player.Location.X - 1, true);
+                    player.Location = new Point2D(nextLocationW, player.Location.Y);
+                    break;
+                case "E":
+                    int nextLocationE = CheckCandidate(mapXmax, player.Location.X + 1);
+                    player.Location = new Point2D(nextLocationE, player.Location.Y);
+                    break;
+                default:
+                    break;
+            }
+        }
+        /// <summary>
+        /// Checks if the player location exceeds maximum value, and returns int 0 as 
+        /// next location if it does exceed.
+        /// </summary>
+        /// <param name="maxvalue">value to compare against</param>
+        /// <param name="playerFutureLocation">players future location</param>
+        /// <returns>new value to set player at.</returns>
+        private static int CheckCandidate(int maxvalue, int playerFutureLocation, bool checkMinimum = false)
+        {
+            if (checkMinimum == false)
+            {
+                if (playerFutureLocation > maxvalue)
+                {
+                    //telepordib teise serva
+                    return 0;
+                    ////peatab seina ees
+                    //return maxvalue;
+                }
+                else 
+                {
+                    return playerFutureLocation;
+                }
+            }
+            else
+            {
+                if (playerFutureLocation < 0)
+                {
+                    //telepordib teise serva
+                    return maxvalue;
+                    ////peatab seina ees
+                    //return 0;
+                }
+                else
+                {
+                    return playerFutureLocation;
+                }
+            }
+
+
         }
     }
 }

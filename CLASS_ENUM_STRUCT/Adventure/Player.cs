@@ -45,5 +45,13 @@ namespace Adventure
         }
 
         /* meetod checkhealth*/
+        public void CheckHealth()
+        {
+            if (Health <= 0)
+            {
+                Lives -= 1;
+                Health = 100;
+            }
+        }
     }
 }
