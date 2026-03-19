@@ -39,7 +39,7 @@ namespace Adventure
         /// <param name="end">Where the player finishes the game</param>
         public World( string thisWorldName, Point2D start, Point2D end)
         {
-            Map = NewMap(10,6);
+            Map = NewMap(10,WhatEvent.GetNames(typeof(WhatEvent)).Length);
             WorldName = thisWorldName;
             StartingPoint = start;
             Goal = end;

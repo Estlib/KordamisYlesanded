@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Adventure.Enemies;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,31 +9,38 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Adventure
 {
+    public enum WhatEvent
+    {
+        Kratt,Witch,Mushroom,Knife,Hill,Shop,Fight
+    }
     public class EventSystem
     {
-        public static void NextEncounter(Player player, World map)
+        public static void NextEncounter(Player player, World map, List<Enemy> enemies, Enemies.Boss boss)
         {
             Point2D playerlocation = player.Location;
-            int result = map.Map[playerlocation.X,playerlocation.Y];
+            WhatEvent result = (WhatEvent)map.Map[playerlocation.X,playerlocation.Y];
             switch (result)
             {
-                case 1:
+                case WhatEvent.Kratt:
                     Event1_Kratt(player);
                     break;
-                case 2:
+                case WhatEvent.Witch:
                     Event2_Witch(player);
                     break;
-                case 3:
+                case WhatEvent.Mushroom:
                     Event3_Mushroom(player);
                     break;
-                case 4:
+                case WhatEvent.Knife:
                     Event4_Knife(player);
                     break;
-                case 5:
+                case WhatEvent.Hill:
                     Event5_Hill(player);
                     break;
-                case 6:
+                case WhatEvent.Shop:
                     Event6_Shop(player);
+                    break;
+                case WhatEvent.Fight:
+                    Event7_Fight(player, enemies, boss);
                     break;
                 default:
                     break;
@@ -63,6 +71,36 @@ namespace Adventure
                     break;
                 default:
                     break;
+            }
+        }
+
+        private static void Event7_Fight(Player player, List<Enemy> enemies, Enemies.Boss boss)
+        {
+            Random generator = new Random();
+            int newChoice = generator.Next(0, enemies.Count);
+            if (newChoice == enemies.Count)
+            {
+                AutoFighter(player, boss);
+            }
+            else
+            {
+                AutoFighter(player, enemies.ElementAt(newChoice));
+            }
+        }
+
+        private static void AutoFighter(Player player, Enemy? enemy = null, Boss? boss = null)
+        {
+            if (boss == null)
+            {
+                boss = (Boss)enemy;
+
+
+
+            }
+            else
+            {
+                Console.WriteLine("eror");
+                return;
             }
         }
 
