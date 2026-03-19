@@ -65,7 +65,10 @@ namespace Adventure
                 }
             }
             while (player.Lives > 0 || playAgain == "yes" );
-            Console.WriteLine("Võiotsid");
+            if (player.Lives > 0)
+            {
+                Console.WriteLine("Võitsid");
+            }
             //do //tsükkel
             //{
             //    do
